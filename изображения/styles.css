@@ -1,0 +1,210 @@
+/* Базовые стили */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Темная тема */
+.dark-theme {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+    color: #e0e0e0;
+}
+
+/* Заголовок */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.highlighted-title {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255,215,0,0.5);
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px gold; }
+    to { text-shadow: 0 0 20px gold, 0 0 30px #ff6b6b; }
+}
+
+/* Контейнер с кнопками */
+#controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.dark-theme button {
+    background: rgba(50, 50, 50, 0.9);
+    color: #fff;
+}
+
+/* Галерея */
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    padding: 20px;
+}
+
+.image-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.selected {
+    border-color: #00ff88;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+    transform: translateY(-10px) scale(1.02);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hidden {
+    opacity: 0.4;
+    filter: grayscale(100%) blur(2px);
+}
+
+.zoom-large {
+    transform: scale(1.15);
+}
+
+.zoom-small {
+    transform: scale(0.85);
+}
+
+.image-box img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+}
+
+.image-description {
+    margin: 15px 0;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+}
+
+.highlighted-text {
+    color: #00ff88;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0,255,136,0.5);
+}
+
+/* Стили для кнопок внутри карточек */
+.image-box button {
+    margin: 5px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.8em;
+}
+
+.image-box button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Панель состояния */
+#status-panel {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#status-panel p {
+    margin: 0;
+    font-size: 1.1em;
+    color: #fff;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.dark-theme #status-panel {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.status-alert {
+    background: linear-gradient(135deg, #ff6b6b, #feca57) !important;
+    animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.dark-theme .status-alert {
+    background: linear-gradient(135deg, #c44569, #e66767) !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .gallery-container {
+        gap: 20px;
+    }
+    
+    .image-box {
+        width: 250px;
+    }
+    
+    #controls {
+        gap: 10px;
+    }
+    
+    button {
+        padding: 8px 16px;
+        font-size: 0.8em;
+    }
+}
