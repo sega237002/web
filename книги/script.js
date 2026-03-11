@@ -1,5 +1,5 @@
 
-// Библиотека случайных книг для генерации
+// библиотека случайных книг для генерации
 const books_database = {
     titles: [
         "Мастер и Маргарита", "Преступление и наказание", "Война и мир", "Анна Каренина",
@@ -17,12 +17,12 @@ const books_database = {
         "Уильям Голдинг", "Иоганн Гёте", "Мигель де Сервантес", "Уильям Шекспир",
         "Герман Мелвилл", "Джейн Остин", "Уильям Теккерей", "Луиза Мэй Олкотт"
     ],
-    // Год генерируется как массив из строк, состоящих из 4 цифр в диапазоне 1800-1999
+    // год генерируется как массив из строк, состоящих из 4 цифр в диапазоне 1800-1999
     years: Array.from({ length: 200 }, (_, i) => (1800 + i).toString()),
     genres: ["Роман", "Поэма", "Повесть", "Рассказ", "Драма", "Трагедия", "Комедия"]
 };
 
-// Конфигурация всех кнопок
+// конфигурация всех кнопок
 const buttonsConfig = [
     {
         id: 'add-random',
@@ -46,7 +46,7 @@ const buttonsConfig = [
     }
 ];
 
-// Цветовые палитры для системы уведомлений
+// цветовые палитры для системы уведомлений
 const typeStyles = {
     success: {
         backgroundColor: '#d4edda',
@@ -70,7 +70,7 @@ const typeStyles = {
     }
 };
 
-// Лимит книг для демонстрации
+// лимит книг для демонстрации
 const MAX_BOOKS = 20;
 
 let library = {
@@ -78,13 +78,13 @@ let library = {
     nextId: 1,
     activeFilter: 'all', // 'all' или 'read'
 
-    // Метод для добавления книги
+    // метод для добавления книги
     addBook(book) {
         this.books.push(book);
         this.nextId = Math.max(this.nextId, book.id + 1);
     },
 
-    // Метод для удаления книги
+    // метод для удаления книги
     removeBook(bookId) {
         const index = this.books.findIndex(b => b.id === bookId);
         if (index !== -1) {
@@ -94,7 +94,7 @@ let library = {
         return false;
     },
 
-    // Метод для переключения статуса
+    // метод для переключения статуса
     toggleReadStatus(bookId) {
         const book = this.books.find(b => b.id === bookId);
         if (book) {
@@ -104,7 +104,7 @@ let library = {
         return null;
     },
 
-    // Метод для получения отфильтрованных книг
+    // метод для получения отфильтрованных книг
     getFilteredBooks() {
         if (this.activeFilter === 'read') {
             return this.books.filter(book => book.read === true);
@@ -112,24 +112,24 @@ let library = {
         return this.books;
     },
 
-    // Метод для очистки библиотеки
+    // метод для очистки библиотеки
     clearBooks() {
         this.books = [];
         this.activeFilter = 'all';
     }
 };
 
-// Генерация случайного числа в диапазоне
+// генерация случайного числа в диапазоне
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Проверка уникальности книги
+// проверка уникальности книги
 function isBookUnique(title, author) {
     return !library.books.some(book => book.title === title && book.author === author);
 }
 
-// Генерация случайной книги
+// генерация случайной книги
 function generateRandomBook() {
     let attempts = 0;
     const maxAttempts = 100;
@@ -145,12 +145,12 @@ function generateRandomBook() {
                 title: title,
                 author: author,
                 year: year,
-                read: Math.random() > 0.5 // Случайный статус прочтения
+                read: Math.random() > 0.5
             };
         }
         attempts++;
     }
-    return null; // Если не удалось найти уникальную комбинацию
+    return null; // если не удалось найти уникальную комбинацию
 }
 
 function showNotification(message, type = 'info') {
@@ -161,20 +161,20 @@ function showNotification(message, type = 'info') {
     notification.className = `notification ${type}`;
     notification.textContent = message;
 
-    // Применяем стили из typeStyles
+    // применение стилей из typeStyles
     const styles = typeStyles[type] || typeStyles.info;
     for (const [key, value] of Object.entries(styles)) {
         notification.style[key] = value;
     }
 
-    // Добавляем возможность закрыть уведомление
+    // добавление возможности закрыть уведомление
     notification.addEventListener('click', function(e) {
         if (e.target === notification) {
             notification.remove();
         }
     });
 
-    // Автоматическое удаление через 3 секунды
+    // автоматическое удаление через 3 секунды
     container.appendChild(notification);
     setTimeout(() => {
         if (notification.parentNode) {
@@ -183,7 +183,7 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Обновление счетчика в футере
+// обновление счетчика в футере
 function updateFooterCounter() {
     const counterSpan = document.querySelector('#total-counter');
     if (counterSpan) {
@@ -191,7 +191,7 @@ function updateFooterCounter() {
     }
 }
 
-// Обновление статистики
+// обновление статистики
 function updateStatistics() {
     const statsContainer = document.querySelector('#statistics');
     if (!statsContainer) return;
@@ -218,7 +218,7 @@ function updateStatistics() {
     `;
 }
 
-// Отрисовка списка книг
+// отрисовка списка книг
 function renderBookList() {
     const bookListContainer = document.querySelector('#book-list');
     if (!bookListContainer) return;
@@ -252,19 +252,19 @@ function renderBookList() {
 
     bookListContainer.innerHTML = booksHTML;
 
-    // Обновляем статистику и счетчик
+    // обновление статистики и счетчика
     updateStatistics();
     updateFooterCounter();
 }
 
 function initializeInterface() {
-    // Инициализация секции списка книг
+    // инициализация секции списка книг
     const bookListDiv = document.querySelector('#book-list');
     if (bookListDiv) {
         bookListDiv.innerHTML = '<h2>Список книг</h2><ol id="books"></ol>';
     }
 
-    // Инициализация секции формы добавления
+    // инициализация секции формы добавления
     const bookFormDiv = document.querySelector('#book-form');
     if (bookFormDiv) {
         bookFormDiv.innerHTML = `
@@ -273,12 +273,12 @@ function initializeInterface() {
         `;
     }
 
-    // Инициализация панели управления
+    // инициализация панели управления
     const controlsDiv = document.querySelector('#controls');
     if (controlsDiv) {
         controlsDiv.innerHTML = '<h2>Управление библиотекой</h2>';
         
-        // Создаем кнопки из конфигурации (пропускаем первую, так как она уже в форме)
+        // создание кнопки из конфигурации
         for (let i = 1; i < buttonsConfig.length; i++) {
             const config = buttonsConfig[i];
             const button = document.createElement('button');
@@ -291,13 +291,13 @@ function initializeInterface() {
         }
     }
 
-    // Инициализация статистики
+    // инициализация статистики
     const statsDiv = document.querySelector('#statistics');
     if (statsDiv) {
         statsDiv.innerHTML = '<h2>Статистика</h2>';
     }
 
-    // Инициализация контейнера уведомлений
+    // инициализация контейнера уведомлений
     const messageContainer = document.querySelector('#message-container');
     if (messageContainer) {
         messageContainer.innerHTML = '<h2>Уведомления</h2>';
@@ -305,7 +305,7 @@ function initializeInterface() {
 }
 
 function initializeData() {
-    // Добавляем 2-3 примерные книги
+    // добавление 2-3 примерных книги
     const sampleBooks = [
         { id: library.nextId++, title: 'Мастер и Маргарита', author: 'Михаил Булгаков', year: '1967', read: true },
         { id: library.nextId++, title: 'Преступление и наказание', author: 'Фёдор Достоевский', year: '1866', read: false },
@@ -316,14 +316,14 @@ function initializeData() {
         library.addBook(book);
     }
 
-    // Первоначальная отрисовка
+    // первоначальная отрисовка
     renderBookList();
 
-    // Показываем приветственное уведомление
+    // показ приветственного уведомления
     showNotification('Добро пожаловать в вашу цифровую библиотеку!', 'info');
 }
 
-// Обработчик добавления случайной книги
+// обработчик добавления случайной книги
 function handleAddRandomBook() {
     if (library.books.length >= MAX_BOOKS) {
         showNotification('Превышен лимит добавления книг', 'error');
@@ -340,7 +340,7 @@ function handleAddRandomBook() {
         renderBookList();
         showNotification(`Добавлена книга: "${newBook.title}"`, 'success');
 
-        // Возвращаем фокус на добавленный элемент
+        // возвращение фокуса на добавленный элемент
         setTimeout(() => {
             const newBookElement = document.querySelector(`[data-book-id="${newBook.id}"]`);
             if (newBookElement) {
@@ -356,7 +356,7 @@ function handleAddRandomBook() {
     }
 }
 
-// Обработчик удаления книги
+// обработчик удаления книги
 function handleDeleteBook(bookId) {
     const book = library.books.find(b => b.id === bookId);
     if (book && library.removeBook(bookId)) {
@@ -365,7 +365,7 @@ function handleDeleteBook(bookId) {
     }
 }
 
-// Обработчик изменения статуса книги
+// обработчик изменения статуса книги
 function handleToggleRead(bookId) {
     const book = library.toggleReadStatus(bookId);
     if (book) {
@@ -374,11 +374,11 @@ function handleToggleRead(bookId) {
     }
 }
 
-// Обработчик фильтрации
+// обработчик фильтрации
 function handleFilter(filterType) {
     library.activeFilter = filterType;
     
-    // Обновляем активное состояние кнопок
+    // обновление активного состояния кнопок
     const showAllBtn = document.querySelector('#show-all');
     const showReadBtn = document.querySelector('#show-read');
     
@@ -388,7 +388,7 @@ function handleFilter(filterType) {
     renderBookList();
 }
 
-// Обработчик очистки списка
+// обработчик очистки списка
 function handleClearAll() {
     if (library.books.length === 0) {
         showNotification('Библиотека уже пуста', 'info');
@@ -402,7 +402,7 @@ function handleClearAll() {
         renderBookList();
         showNotification(`Удалено ${deletedCount} книг из библиотеки`, 'warning');
 
-        // Активируем кнопку добавления, если она была отключена
+        // активация кнопки добавления, если она была отключена
         const addButton = document.querySelector('#add-random-btn');
         if (addButton) {
             addButton.disabled = false;
@@ -410,32 +410,32 @@ function handleClearAll() {
     }
 }
 
-// Основной обработчик кликов (делегирование событий)
+// основной обработчик кликов
 function setupEventListeners() {
     document.addEventListener('click', function(e) {
         const target = e.target;
 
-        // Обработка кнопки добавления случайной книги
+        // обработка кнопки добавления случайной книги
         if (target.id === 'add-random-btn') {
             handleAddRandomBook();
         }
 
-        // Обработка кнопки "Показать все книги"
+        // обработка кнопки "Показать все книги"
         if (target.id === 'show-all') {
             handleFilter('all');
         }
 
-        // Обработка кнопки "Показать прочитанные"
+        // обработка кнопки "Показать прочитанные"
         if (target.id === 'show-read') {
             handleFilter('read');
         }
 
-        // Обработка кнопки "Очистить список"
+        // обработка кнопки "Очистить список"
         if (target.id === 'clear-all') {
             handleClearAll();
         }
 
-        // Обработка кнопки удаления внутри карточки книги
+        // обработка кнопки удаления внутри карточки книги
         if (target.classList.contains('delete-btn')) {
             const bookElement = target.closest('[data-book-id]');
             if (bookElement) {
@@ -444,7 +444,7 @@ function setupEventListeners() {
             }
         }
 
-        // Обработка кнопки изменения статуса внутри карточки книги
+        // обработка кнопки изменения статуса внутри карточки книги
         if (target.classList.contains('toggle-read-btn')) {
             const bookElement = target.closest('[data-book-id]');
             if (bookElement) {
@@ -454,7 +454,7 @@ function setupEventListeners() {
         }
     });
 
-    // Добавляем эффекты наведения для кнопок
+    // добавление эффектов наведения для кнопок
     const allButtons = document.querySelectorAll('button');
     for (const button of allButtons) {
         button.addEventListener('mouseover', function() {

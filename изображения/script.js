@@ -1,4 +1,4 @@
-// Ждем загрузки DOM
+// ожидание загрузки DOM
 document.addEventListener('DOMContentLoaded', () => {
     // Элементы
     const themeToggle = document.getElementById('theme-toggle');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Задача 1: Управление темами
+    // управление темами
     themeToggle.addEventListener('click', function() {
         document.body.classList.toggle('dark-theme');
         galleryTitle.classList.toggle('highlighted-title');
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Задача 2: Выбор изображений
+    // выбор изображений
     selectBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const imageBox = this.parentElement;
@@ -52,26 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Задача 3: Скрытие изображений
+    // скрытие изображений
     hideBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const imageBox = this.parentElement;
             imageBox.classList.toggle('hidden');
             
-            // Если скрываем выбранное — снимаем выбор
+            // при скрытии выбранного — снимается выбор
             if (imageBox.classList.contains('selected')) {
                 imageBox.classList.remove('selected');
                 imageBox.querySelector('.image-description').classList.remove('highlighted-text');
             }
             
-            // Меняем текст кнопки
+            // замена текста кнопки
             this.textContent = imageBox.classList.contains('hidden') ? 'Показать' : 'Скрыть';
             
             updateCountersAndAlert();
         });
     });
 
-    // Задача 4: Управление масштабом
+    // управление масштабом
     zoomInBtn.addEventListener('click', function() {
         imageBoxes.forEach(box => {
             box.classList.add('zoom-large');
@@ -86,33 +86,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Задача 5: Сброс стилей
+    // сброс стилей
     resetBtn.addEventListener('click', function() {
         imageBoxes.forEach(box => {
-            // Полный сброс классов через className (как требует ТЗ)
+            // полный сброс классов через className
             box.className = 'image-box';
         });
         
-        // Сброс описаний
+        // сброс описаний
         document.querySelectorAll('.image-description').forEach(desc => {
             desc.classList.remove('highlighted-text');
         });
         
-        // Сброс кнопок скрытия
+        // сброс кнопок скрытия
         document.querySelectorAll('.hide-btn').forEach(btn => {
             btn.textContent = 'Скрыть';
         });
         
-        // Сброс панели
+        // сброс панели
         statusPanel.classList.remove('status-alert');
         
-        // Обновление счетчиков
+        // обновление счетчиков
         updateCountersAndAlert();
     });
 
-    // Задача 6: Динамические стили
+    // динамические стили
     imageBoxes.forEach(box => {
-        // Наведение
+        // наведение
         box.addEventListener('mouseenter', function() {
             this.style.borderColor = '#FF6B6B';
         });
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.style.borderColor = '';
         });
         
-        // Двойной клик на изображение
+        // двойной клик на изображение
         const img = box.querySelector('img');
         img.addEventListener('dblclick', function() {
             this.style.transition = 'filter 0.5s';
@@ -129,6 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Инициализация счетчиков
+    // инициализация счетчиков
     updateCountersAndAlert();
 });

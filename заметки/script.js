@@ -38,7 +38,7 @@ function createNoteElement() {
     const noteDiv = document.createElement('div');
     noteDiv.className = 'note';
 
-    // Используем innerHTML для структуры (по ТЗ)
+    //innerHTML для структуры
     noteDiv.innerHTML = `
         <div class="note-header">
             <span class="note-title">Заметка #${currentNumber}</span>
@@ -54,19 +54,19 @@ function createNoteElement() {
     const contentDiv = noteDiv.querySelector('.note-content');
 
     editBtn.addEventListener('click', function (event) {
-        event.stopPropagation(); // избегаем случайных всплытий
+        event.stopPropagation();
 
-        // Получаем текущую заметку через closest (по ТЗ)
+        //текущая заметку через closest
         const currentNote = this.closest('.note');
         const noteTitle = currentNote.querySelector('.note-title');
         const noteNumber = noteTitle.textContent.split('#')[1]; // например, "Заметка #3" → "3"
 
         if (this.textContent === 'Редактировать') {
-            // Режим редактирования: меняем текст и кнопку
+            // режим редактирования текста и кнопки
             contentDiv.textContent = `Отредактированная заметка #${noteNumber}`;
             this.textContent = 'Сохранить';
         } else {
-            // Режим сохранения
+            // режим сохранения
             contentDiv.textContent = `Сохраненная заметка #${noteNumber}`;
             this.textContent = 'Редактировать';
         }
@@ -76,11 +76,10 @@ function createNoteElement() {
     deleteBtn.addEventListener('click', function (event) {
         event.stopPropagation();
         const noteToRemove = this.closest('.note');
-        // Удаляем через outerHTML (по ТЗ, но проще remove; используем outerHTML как указание)
-        // Однако outerHTML = '' полностью удалит элемент, но ссылка останется. Сделаем по ТЗ:
+        // Удаление через outerHTML
         noteToRemove.outerHTML = '';
 
-        // Если заметок не осталось — показываем заглушку
+        // Если заметок не осталось — показывается заглушка
         if (document.querySelectorAll('.note').length === 0) {
             container.innerHTML = 'Заметок нет. Добавьте первую!';
         }
@@ -90,22 +89,22 @@ function createNoteElement() {
 }
 
 function addNote() {
-    // Если сейчас заглушка "Заметок нет..." — удаляем её
+    // Если сейчас заглушка "Заметок нет...", то она удаляется
     if (container.textContent.includes('Заметок нет. Добавьте первую!')) {
-        container.innerHTML = ''; // очищаем, чтобы убрать текстовую заглушку
+        container.innerHTML = ''; // очищение, чтобы убрать текстовую заглушку
     }
 
     const newNote = createNoteElement();
-    container.appendChild(newNote); // добавляем в конец
+    container.appendChild(newNote); // добавление в конец
 }
 
 // Очистка всех заметок
 function clearAllNotes() {
     container.innerHTML = 'Заметок нет. Добавьте первую!';
-    // Не сбрасываем noteCounter, чтобы нумерация продолжалась (ТЗ не требует сброса)
+    // Не сбрасывается noteCounter
 }
 
-// Привязка обработчиков (addEventListener)
+// Привязка обработчиков
 addBtn.addEventListener('click', function () {
     addNote();
 });
