@@ -450,7 +450,7 @@ function setupEventListeners() {
             if (bookElement) {
                 const bookId = parseInt(bookElement.dataset.bookId);
                 handleToggleRead(bookId);
-            }
+            }фф
         }
     });
 
